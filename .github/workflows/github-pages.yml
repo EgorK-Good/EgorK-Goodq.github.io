@@ -1,4 +1,5 @@
-# Деплой клиентского портала (папка docs/) на GitHub Pages
+# Деплой клиентского портала (docs/) на GitHub Pages
+# Вариант 1: публикует в ветку gh-pages (проще включить в Settings)
 name: Deploy client portal to GitHub Pages
 
 on:
@@ -7,20 +8,11 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
+  contents: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -30,16 +22,15 @@ jobs:
         run: |
           node -e "
           const api = process.env.API_PUBLIC_URL || 'http://localhost:3000';
-          const fs = require('fs');
-          fs.writeFileSync('docs/js/config.js', 'window.PORTAL_CONFIG = ' + JSON.stringify({ apiBase: api }, null, 2) + ';\n');
+          require('fs').writeFileSync('docs/js/config.js',
+            'window.PORTAL_CONFIG = ' + JSON.stringify({ apiBase: api }, null, 2) + ';\n');
           console.log('API для портала:', api);
           "
 
-      - uses: actions/configure-pages@v5
-
-      - uses: actions/upload-pages-artifact@v3
+      - name: Публикация в ветку gh-pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: docs
-
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./docs
+          force_orphan: true
