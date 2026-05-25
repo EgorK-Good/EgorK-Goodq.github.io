@@ -1,6 +1,5 @@
-# Деплой клиентского портала (docs/) на GitHub Pages
-# Вариант 1: публикует в ветку gh-pages (проще включить в Settings)
-name: Deploy client portal to GitHub Pages
+# Деплой клиентского портала (docs/) — БЕЗ configure-pages (ветка gh-pages)
+name: Deploy portal (gh-pages branch)
 
 on:
   push:
