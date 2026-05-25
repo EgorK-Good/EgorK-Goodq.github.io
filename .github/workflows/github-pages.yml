@@ -1,0 +1,45 @@
+# Деплой клиентского портала (папка docs/) на GitHub Pages
+name: Deploy client portal to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Подставить URL API
+        env:
+          API_PUBLIC_URL: ${{ vars.API_PUBLIC_URL }}
+        run: |
+          node -e "
+          const api = process.env.API_PUBLIC_URL || 'http://localhost:3000';
+          const fs = require('fs');
+          fs.writeFileSync('docs/js/config.js', 'window.PORTAL_CONFIG = ' + JSON.stringify({ apiBase: api }, null, 2) + ';\n');
+          console.log('API для портала:', api);
+          "
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

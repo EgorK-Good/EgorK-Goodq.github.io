@@ -1,0 +1,59 @@
+:root {
+  --bg: #0e0e14;
+  --surface: #161622;
+  --card: #1a1a28;
+  --border: #2a2a3d;
+  --text: #f4f4fa;
+  --muted: #8b8ba3;
+  --label: #c8c8e0;
+  --accent: #6c5ce7;
+  --accent-hover: #7d6ff0;
+  --accent-soft: #2a2545;
+  --danger: #ff6b8a;
+  --radius: 12px;
+  --nav-h: 64px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); }
+.app { min-height: 100dvh; }
+.screen { display: none; min-height: 100dvh; }
+.screen--active { display: flex; flex-direction: column; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+.card--auth { width: min(420px, calc(100% - 32px)); margin: auto; }
+.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.brand__logo { width: 44px; height: 44px; border-radius: 10px; background: var(--accent); display: grid; place-items: center; font-size: 24px; font-weight: 700; }
+.brand__title { font-size: 22px; font-weight: 700; margin: 0; }
+.brand__sub { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+label { display: block; font-size: 12px; font-weight: 600; color: var(--label); margin: 0 0 6px; }
+input, textarea { width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 15px; margin-bottom: 12px; }
+textarea { min-height: 88px; resize: vertical; }
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; border-radius: 8px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; }
+.btn--primary { background: var(--accent); color: #fff; width: 100%; }
+.btn--primary:hover { background: var(--accent-hover); }
+.error { color: var(--danger); font-size: 13px; margin: 8px 0; min-height: 1.2em; }
+.hint { color: var(--muted); font-size: 12px; margin-top: 12px; line-height: 1.5; }
+.app-header { padding: 16px 20px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.app-header h1 { margin: 0; font-size: 18px; }
+.app-header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+.app-body { flex: 1; overflow: auto; padding: 16px 20px calc(var(--nav-h) + 16px); max-width: 720px; margin: 0 auto; width: 100%; }
+.bottom-nav { position: fixed; left: 0; right: 0; bottom: 0; height: var(--nav-h); display: flex; background: var(--surface); border-top: 1px solid var(--border); padding-bottom: env(safe-area-inset-bottom); }
+.nav-btn { flex: 1; border: none; background: transparent; color: var(--muted); font-size: 11px; font-weight: 600; cursor: pointer; }
+.nav-btn--active { color: var(--accent); }
+.panel-title { font-size: 16px; font-weight: 600; margin: 0 0 12px; }
+.kv-row { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.kv-row span:first-child { color: var(--muted); }
+.task { padding: 14px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border); margin-bottom: 10px; }
+.task h3 { margin: 0 0 6px; font-size: 15px; }
+.task-meta { font-size: 12px; color: var(--muted); }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; background: var(--accent-soft); color: var(--accent-hover); }
+.chat { display: flex; flex-direction: column; gap: 10px; max-height: 50vh; overflow-y: auto; margin-bottom: 12px; }
+.msg { max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: 14px; line-height: 1.4; }
+.msg--mine { align-self: flex-end; background: var(--accent); }
+.msg--theirs { align-self: flex-start; background: var(--surface); border: 1px solid var(--border); }
+.msg-meta { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.worker-card { background: var(--accent-soft); border: 1px solid #3d3568; border-radius: var(--radius); padding: 14px; margin-bottom: 16px; }
+.worker-card h3 { margin: 0 0 4px; font-size: 15px; }
+.worker-card p { margin: 0; color: var(--muted); font-size: 13px; }
+@media (min-width: 768px) {
+  .bottom-nav { max-width: 480px; left: 50%; transform: translateX(-50%); border-radius: 16px 16px 0 0; }
+}
