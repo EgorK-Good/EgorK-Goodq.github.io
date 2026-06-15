@@ -1,0 +1,1 @@
+﻿window.PORTAL_CONFIG = { apiBase: "https://nutten-implement-columnists-catch.trycloudflare.com" };
